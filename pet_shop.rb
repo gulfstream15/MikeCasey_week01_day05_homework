@@ -35,13 +35,11 @@ end
 
 # Find breed
 def pets_by_breed(pet_shop, breed)
-  breed_count = 0
   found_breed = []
 
   for pet in pet_shop[:pets]
     if pet[:breed] == breed 
-      breed_count += breed_count
-      found_breed << breed_count 
+      found_breed << pet 
     end 
   end
 
@@ -78,8 +76,6 @@ def remove_pet_by_name(pet_shop, name)
   pet_shop[:pets].delete_at(found_index)
 
 end
-
-# All below works
 
 # Add pet to stock
 def add_pet_to_stock(pet_shop, new_pet)
@@ -122,6 +118,7 @@ def sell_pet_to_customer(pet_shop, pet, customer)
   # 1. add pet to customer's pet list
   # 2. increase pets sold
   # 3. retrieve cost of pet and add to total
+  # 4. remove the pet from the stock
   for pet in pet_shop[:pets]
     if pet[:name] == pet_string
       pet_cost = pet[:price]
@@ -129,6 +126,7 @@ def sell_pet_to_customer(pet_shop, pet, customer)
         customer[:pets] << pet_string
         increase_pets_sold(pet_shop, 1)
         add_or_remove_cash(pet_shop, pet_cost)
+        remove_pet_by_name(pet_shop, pet)
       end  
       break
     end
